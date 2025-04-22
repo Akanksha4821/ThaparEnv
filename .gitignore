@@ -1,7 +1,4 @@
-# Created by venv; see https://docs.python.org/3/library/venv.html
-include
-Lib
-Scripts
+ThaparEnv/_pycache_
+ThaparEnv/App/_pycache_
+chroma
 .env
-pyvenv.cfg
-share

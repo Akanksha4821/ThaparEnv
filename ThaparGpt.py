@@ -8,9 +8,10 @@ from huggingface_hub import InferenceClient
 
 class DataLoader:
     def __init__(self):
-        self.data_dir = "Structured_Data"
+        self.data_dir = r"C:\ThaparBot\ThaparEnv\Structured_Data"
     def load_files(self):
         data = {}
+        print(f"Looking in directory: {self.data_dir}")
         for filename in os.listdir(self.data_dir):
             if filename.endswith('.txt'):
                 with open(os.path.join(self.data_dir,filename),'r') as f:
