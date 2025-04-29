@@ -93,25 +93,29 @@ class Mixtral:
         load_dotenv()
         self.LLM = "mistralai/Mixtral-8x7B-Instruct-v0.1"
         self.hf_api_key = os.getenv("HUGGINGFACE_API_KEY")
-        if not self.hf_api_key :
+        if not self.hf_api_key:
             raise ValueError("Check .env file as api key not found")
         self.client = InferenceClient(token=self.hf_api_key)
 
-    
-    def generate(self,prompt,max_new_token=300,temprature = 0.1,top_p = 0.9,reptition_penalty = 1.5):
+    def generate(self, prompt, max_new_token=300, temperature=0.1, top_p=0.9, repetition_penalty=1.5):
         try:
+            # Try generating the response using the provided parameters
             response = self.client.text_generation(
                 prompt=prompt,
                 model=self.LLM,
-                max_new_tokens= max_new_token,
-                temperature= temprature,
+                max_new_tokens=max_new_token,
+                temperature=temperature,
                 top_p=top_p,
-                repetition_penalty=reptition_penalty,
+                repetition_penalty=repetition_penalty,
                 do_sample=True
             )
-            return response.strip()
+            return response.strip()  # Return the response after stripping unwanted spaces/newlines
         except Exception as e:
-            raise RuntimeError("Failed to generate any respose check code.")
+            # Raise a more informative error if something goes wrong
+            raise RuntimeError(f"Failed to generate response. Error: {str(e)}")
+
+    
+    
 
 
 class ThaparAssistant(VectorDB,Mixtral):
